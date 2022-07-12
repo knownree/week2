@@ -2,19 +2,21 @@ import pandas as pd
 import numpy as np
 import xlrd
 import matplotlib.pyplot as plt
+
+
 def get_cab_data():
     cab_data = pd.read_csv('Cab_Data.csv')
     p=[]
     y=[]
     col3 = cab_data['Company']
     cab = np.array(col3)
-    for n in range(1,len(cab_data)):
+    for n in range(1,len(cab_data)):#pink cap and yellow cap position in list
         if str(cab[n]) == 'Pink Cab' :
             p.append(n)
         elif str(cab[n]) == 'Yellow Cab' :
             y.append(n)
     col1 = cab_data['Transaction ID']
-    tran = np.array(col1)
+    tran = np.array(col1)#find value by position
     p_tran =tran[p]
     y_tran =tran[y]
     col2 = cab_data['Date of Travel']
@@ -45,7 +47,7 @@ def get_cab_data():
 def date(p_date,y_date):
     p_date1=[]
     y_date1=[]
-    for i in range(0,len(p_date)):
+    for i in range(0,len(p_date)):#transfer to normal date
         a = xlrd.xldate_as_tuple(p_date[i],0)
         p_date1.append(a)
     for i in range(0,len(y_date)):
@@ -54,7 +56,7 @@ def date(p_date,y_date):
     p16=[]
     p17=[]
     p18=[]
-    for i in range(0,len(p_date)):
+    for i in range(0,len(p_date)):#seperate by year
         if p_date1[i][0] == 2016:
             p16.append(i)
         elif p_date1[i][0] == 2017:
@@ -75,7 +77,7 @@ def date(p_date,y_date):
     psu=[]
     pau=[]
     pwi=[]
-    for i in range(0,len(p_date)):
+    for i in range(0,len(p_date)):#seperate by season
         if p_date1[i][1] <4:
             psp.append(i)
         elif p_date1[i][1] >=4 and p_date1[i][1]<7:
@@ -101,6 +103,7 @@ def date(p_date,y_date):
 
 def get_tran_data(p_tran,y_tran,p,y,p16,p17,p18,y16,y17,y18,psp,psu,pau,pwi,ysp,ysu,yau,ywi):
     tran_data = pd.read_csv('Transaction_ID.csv')
+    tran_data.sort_values('Transaction ID',ascending=True,inplace=True)
     col1 = tran_data['Transaction ID']
     tran = np.array(col1)
     col2 = tran_data['Customer ID']
@@ -127,7 +130,7 @@ def get_tran_data(p_tran,y_tran,p,y,p16,p17,p18,y16,y17,y18,psp,psu,pau,pwi,ysp,
     p_cust_num=[]
     y_cust_num=[]
     i=0;j=1
-    for i in range(0,len(p_cust1)-1):
+    for i in range(0,len(p_cust1)-1):#get each cap's cust number
         if p_cust1[i] == p_cust1[i+1]:
             j=j+1
         else:
@@ -155,6 +158,7 @@ def get_tran_data(p_tran,y_tran,p,y,p16,p17,p18,y16,y17,y18,psp,psu,pau,pwi,ysp,
 
 def get_cust_data(p_cust,y_cust,datecust1):
     cust_data=pd.read_csv('Customer_ID.csv')
+    cust_data.sort_values('Customer ID', ascending=True,inplace=True)
     col1 = cust_data['Customer ID']
     cust = np.array(col1)
     col2 = cust_data['Gender']
@@ -168,7 +172,7 @@ def get_cust_data(p_cust,y_cust,datecust1):
     i=0
     j=0
     p_cust2=sorted(p_cust)
-    while i<len(cust) and j<len(p_cust):
+    while i<len(cust) and j<len(p_cust):#get position use the cust number
         if cust[i] == p_cust2[j]:
             p.append(i)
             i+=1
@@ -190,7 +194,7 @@ def get_cust_data(p_cust,y_cust,datecust1):
         else:
             j+=1
     p16c=[];p17c=[];p18c=[];y16c=[];y17c=[];y18c=[];pspc=[];psuc=[];pauc=[];pwic=[];yspc=[];ysuc=[];yauc=[];ywic=[]
-    datecust=[p16c,p17c,p18c,y16c,y17c,y18c,pspc,psuc,pauc,pwic,yspc,ysuc,yauc,ywic]
+    datecust=[p16c,p17c,p18c,y16c,y17c,y18c,pspc,psuc,pauc,pwic,yspc,ysuc,yauc,ywic]#the cust number of each year each cap
     for i in range(0,13):
         j=0;k=0
         while j < len(cust) and k <len(datecust1[i]):
@@ -215,8 +219,8 @@ def city(p_city,y_city):
     p_city_num=[]
     y_city_num=[]
     j=1
-    for i in range(0,len(p_city)-1):
-        if p_city[i+1] == p_city[i]:
+    for i in range(0,len(p_city)-1):#first sort it, and then find the number of same city and get the number of tran of a city
+        if p_city[i+1] == p_city[i]:#also sort the csv file in excel to know the city order
             j+=1
         else:
             p_city_num.append(j)
@@ -230,7 +234,6 @@ def city(p_city,y_city):
             y_city_num.append(j)
             j=1
     y_city_num.append(j)
-    print(len(p_city_num),len(y_city_num))
     width=0.8
     yn=[0]*19
     for i in range(0,len(y_city_num)):
@@ -294,11 +297,10 @@ def plotyear(p16,p17,p18,y16,y17,y18,p_profit,y_profit,p_tran,y_tran,p_km,y_km,g
     y16i=inc[datecust[3]]
     y17i=inc[datecust[4]]
     y18i=inc[datecust[5]]
-    print(len(p16i),len(p17i),len(p18i))
     p16i0=[];p16i3=[];p16i5=[];p17i0=[];p17i3=[];p17i5=[];p18i0=[];p18i3=[];p18i5=[]
     y16i0=[];y16i3=[];y16i5=[];y17i0=[];y17i3=[];y17i5=[];y18i0=[];y18i3=[];y18i5=[]
     datainc=[p16i0,p16i3,p16i5,p17i0,p17i3,p17i5,p18i0,p18i3,p18i5,y16i0,y16i3,y16i5,y17i0,y17i3,y17i5,y18i0,y18i3,y18i5]
-    
+    #cust of each year, each income stage, and each company
     for j in range(0,len(p16i)):
         if p16i[j]<3500:
             datainc[0].append(j)
@@ -344,7 +346,7 @@ def plotyear(p16,p17,p18,y16,y17,y18,p_profit,y_profit,p_tran,y_tran,p_km,y_km,g
     p16a18=[];p16a26=[];p16a41=[];p16a61=[];p17a18=[];p17a26=[];p17a41=[];p17a61=[];p18a18=[];p18a26=[];p18a41=[];p18a61=[]
     y16a18=[];y16a26=[];y16a41=[];y16a61=[];y17a18=[];y17a26=[];y17a41=[];y17a61=[];y18a18=[];y18a26=[];y18a41=[];y18a61=[]
     dataage=[p16a18,p16a26,p16a41,p16a61,p17a18,p17a26,p17a41,p17a61,p18a18,p18a26,p18a41,p18a61,y16a18,y16a26,y16a41,y16a61,y17a18,y17a26,y17a41,y17a61,y18a18,y18a26,y18a41,y18a61]
-    
+    #cust of each year, each age stage, each company
     for i in range(0,len(p16a)):
         if p16a[i]<26:
             p16a18.append(i)
@@ -710,7 +712,7 @@ def plotyear(p16,p17,p18,y16,y17,y18,p_profit,y_profit,p_tran,y_tran,p_km,y_km,g
     i5=sorted(p16i5+p17i5+p18i5+y16i5+y17i5+y18i5)
     a18i0=0;a18i3=0;a18i5=0;a26i0=0;a26i3=0;a26i5=0;a41i0=0;a41i3=0;a41i5=0;a61i0=0;a61i3=0;a61i5=0
     i=0;j=0
-    while i<len(a18) and j<len(i0):
+    while i<len(a18) and j<len(i0):#cust of each age stage and income stage
         if a18[i] == i0[j]:
             a18i0+=1
             i+=1
@@ -926,8 +928,9 @@ def plotyear(p16,p17,p18,y16,y17,y18,p_profit,y_profit,p_tran,y_tran,p_km,y_km,g
     dataage1=[p16a18+p17a18+p18a18+y16a18+y17a18+y18a18,p16a26+p17a26+p18a26+y16a26+y17a26+y18a26,p16a41+p17a41+p18a41+y16a41+y17a41+y18a41,p16a61+p17a61+p18a61+y16a61+y17a61+y18a61]
     return dataage1,datainc1
 
-def transfer(dataage1,datainc1):
-    data = pd.read_csv('Transaction_ID1.csv')
+def transfer(dataage1,datainc1):# the income position and age position is under cust number, tranfer it to transaction ID, so it can be connected with tran and profit
+    data = pd.read_csv('Transaction_ID.csv')
+    data.sort_values('Customer ID',ascending=True,inplace=True)
     col1= data['Transaction ID']
     col2=data['Customer ID']
     tran=np.array(col1)
@@ -1203,7 +1206,6 @@ def plotmonth(p_tran,y_tran,p_km,y_km,p_profit,y_profit,psp,psu,pau,pwi,ysp,ysu,
     plt.ylabel(u'total distance')
     plt.title('distance with seasons',loc='center')
     plt.savefig(fname='kmsea.png',dpi=100)
-    plt.show()
     
     
 
