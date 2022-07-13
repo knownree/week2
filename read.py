@@ -617,7 +617,7 @@ def plotyear(p16,p17,p18,y16,y17,y18,p_profit,y_profit,p_tran,y_tran,p_km,y_km,g
     for a,b in zip(x,y615):
         plt.text(a,b/2,'%.3f'%b,ha='center',va='center',fontsize=7)
     for i in range(0,3):
-        plt.text(x[i],y615[i]+y67[i]/2,'%.3f'%y617[i],ha='center',va='center',fontsize=7,)   
+        plt.text(x[i],y615[i]+y617[i]/2,'%.3f'%y617[i],ha='center',va='center',fontsize=7,)   
         plt.text(x[i],y615[i]+y617[i]+y619[i]/2,'%.3f'%y619[i],ha='center',va='center',fontsize=7,)
         plt.text(x[i],y615[i]+y617[i]+y619[i]+y621[i]/2,'%.3f'%y621[i],ha='center',va='center',fontsize=7,)
     plt.xlabel(u'year')
@@ -649,7 +649,7 @@ def plotyear(p16,p17,p18,y16,y17,y18,p_profit,y_profit,p_tran,y_tran,p_km,y_km,g
 
     #cust amount with year
     y71=[len(p16g),len(p17g),len(p18g)]
-    y72=[len(y16g),len(y17g),len(y16g)]
+    y72=[len(y16g),len(y17g),len(y18g)]
     plt.figure(10)
     plt.bar(x,y71,width=width,color='pink',label='pink')
     plt.bar(x+width,y72,width=width,color='y',label='yellow')
@@ -659,7 +659,7 @@ def plotyear(p16,p17,p18,y16,y17,y18,p_profit,y_profit,p_tran,y_tran,p_km,y_km,g
         plt.text(a,b,'%.f'%b,ha='center',va='bottom',fontsize=7)
     for a,b in zip(x+width,y72):
         plt.text(a,b,'%.f'%b,ha='center',va='bottom',fontsize=7)
-    plt.legend()
+    plt.legend(loc=2)
     plt.xlabel(u'year')
     plt.ylabel(u'amount of customer')
     plt.title('customer amount with year',loc='center')
@@ -860,11 +860,8 @@ def plotyear(p16,p17,p18,y16,y17,y18,p_profit,y_profit,p_tran,y_tran,p_km,y_km,g
     plt.savefig(fname='ageinc.png',dpi=100)
 
     #tran per cust with year
-    y101=[0,0,0]
-    y102=[0,0,0]
-    for i in range(0,3):
-        y101[i]=y11[i]/y71[i]
-        y102[i]=y12[i]/y72[i]
+    y101=[25079/15729,30321/17785,29310/17598]
+    y102=[82239/28345,98189/30634,94253/30748]
     plt.figure(16)
     plt.bar(x,y101,width=width,color='pink',label='pink')
     plt.bar(x+width,y102,width=width,color='y',label='yellow')
@@ -1092,9 +1089,9 @@ def mixplot(p_tran,y_tran,p_profit,y_profit,dataaget1,datainct1):
     xlabels=['18-25','26-40','41-60','>60']  
     plt.xticks([i+width/2 for i in x],xlabels)
     for a,b in zip(x,y31):
-        plt.text(a,b,'%.f'%b,ha='center',va='bottom',fontsize=7)
+        plt.text(a,b,'%.2f'%b,ha='center',va='bottom',fontsize=7)
     for a,b in zip(x+width,y32):
-        plt.text(a,b,'%.f'%b,ha='center',va='bottom',fontsize=7)
+        plt.text(a,b/2,'%.2f'%b,ha='center',va='bottom',fontsize=7)
     plt.legend()
     plt.xlabel(u'age group')
     plt.ylabel(u'average profit')
@@ -1112,9 +1109,9 @@ def mixplot(p_tran,y_tran,p_profit,y_profit,dataaget1,datainct1):
     xlabels=['<3500','3500-15000','>15000']  
     plt.xticks([i+width/2 for i in x],xlabels)
     for a,b in zip(x,y41):
-        plt.text(a,b,'%.f'%b,ha='center',va='bottom',fontsize=7)
+        plt.text(a,b,'%.2f'%b,ha='center',va='bottom',fontsize=7)
     for a,b in zip(x+width,y42):
-        plt.text(a,b,'%.f'%b,ha='center',va='bottom',fontsize=7)
+        plt.text(a,b/2,'%.2f'%b,ha='center',va='bottom',fontsize=7)
     plt.legend()
     plt.xlabel(u'income group')
     plt.ylabel(u'average profit')
@@ -1171,7 +1168,7 @@ def plotmonth(p_tran,y_tran,p_km,y_km,p_profit,y_profit,psp,psu,pau,pwi,ysp,ysu,
     plt.title('profit with seasons',loc='center')
     plt.savefig(fname='profsea.png',dpi=100)
 
-    #tran with year
+    #tran with season
     y21=[pspt,psut,paut,pwit]
     y22=[yspt,ysut,yaut,ywit]
     plt.figure(25)
