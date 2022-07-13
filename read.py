@@ -10,7 +10,7 @@ def get_cab_data():
     y=[]
     col3 = cab_data['Company']
     cab = np.array(col3)
-    for n in range(1,len(cab_data)):#pink cap and yellow cap position in list
+    for n in range(1,len(cab_data)):#pink campany and yellow cap position in list
         if str(cab[n]) == 'Pink Cab' :
             p.append(n)
         elif str(cab[n]) == 'Yellow Cab' :
