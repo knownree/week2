@@ -464,8 +464,11 @@ def plotyear(p16,p17,p18,y16,y17,y18,p_profit,y_profit,p_tran,y_tran,p_km,y_km,g
 
 
     #km profit rate by years
-    y41=np.array(y31)/np.array(y21)
-    y42=np.array(y32)/np.array(y22)
+    y41=[0,0,0]
+    y42=[0,0,0]
+    for i in range(0,3):
+        y41[i]=y21[i]/y31[i]
+        y42[i]=y22[i]/y32[i]
     plt.figure(4)
     plt.bar(x,y41,width=width,color='pink',label='pink')
     plt.bar(x+width,y42,width=width,color='y',label='yellow')
