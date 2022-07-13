@@ -868,9 +868,9 @@ def plotyear(p16,p17,p18,y16,y17,y18,p_profit,y_profit,p_tran,y_tran,p_km,y_km,g
     xlabels=['2016','2017','2018']  
     plt.xticks([i+width/2 for i in x],xlabels)
     for a,b in zip(x,y101):
-        plt.text(a,b,'%.3f'%b,ha='center',va='bottom',fontsize=7)
+        plt.text(a,b,'%.2f'%b,ha='center',va='bottom',fontsize=7)
     for a,b in zip(x+width,y102):
-        plt.text(a,b,'%.3f'%b,ha='center',va='bottom',fontsize=7)
+        plt.text(a,b,'%.2f'%b,ha='center',va='bottom',fontsize=7)
     plt.legend()
     plt.xlabel(u'year')
     plt.ylabel(u'tran per customer')
